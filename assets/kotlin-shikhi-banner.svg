@@ -1,1 +1,48 @@
+<svg width="1280" height="420" viewBox="0 0 1280 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1280" y2="420" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0F1020"/>
+      <stop offset="0.55" stop-color="#17142B"/>
+      <stop offset="1" stop-color="#25134A"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="160" y1="90" x2="1070" y2="350" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#A855F7"/>
+      <stop offset="1" stop-color="#6366F1"/>
+    </linearGradient>
+    <filter id="blur" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="55"/>
+    </filter>
+  </defs>
 
+  <rect width="1280" height="420" rx="28" fill="url(#bg)"/>
+  <circle cx="1120" cy="70" r="150" fill="#8B5CF6" opacity="0.18" filter="url(#blur)"/>
+  <circle cx="120" cy="390" r="130" fill="#6366F1" opacity="0.14" filter="url(#blur)"/>
+
+  <path d="M0 342C240 292 340 386 590 337C825 291 974 238 1280 306V420H0V342Z" fill="#FFFFFF" opacity="0.025"/>
+
+  <rect x="88" y="72" width="82" height="82" rx="22" fill="url(#accent)"/>
+  <text x="129" y="130" text-anchor="middle" font-family="Arial, sans-serif" font-size="40" font-weight="700" fill="white">K</text>
+
+  <text x="196" y="118" font-family="Arial, sans-serif" font-size="54" font-weight="700" fill="white">Kotlin শিখি</text>
+  <text x="92" y="202" font-family="Arial, sans-serif" font-size="27" fill="#D7D3E8">Kotlin শেখা হোক সহজ, বাংলায়।</text>
+  <text x="92" y="252" font-family="Arial, sans-serif" font-size="19" fill="#A9A5BA">A beginner-friendly Kotlin learning platform for Bengali learners.</text>
+
+  <rect x="92" y="292" width="168" height="48" rx="24" fill="#FFFFFF" opacity="0.08" stroke="#FFFFFF" stroke-opacity="0.14"/>
+  <text x="176" y="322" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="600" fill="#F3F0FF">5 Learning Modules</text>
+
+  <rect x="276" y="292" width="145" height="48" rx="24" fill="#FFFFFF" opacity="0.08" stroke="#FFFFFF" stroke-opacity="0.14"/>
+  <text x="348" y="322" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="600" fill="#F3F0FF">বাংলা Lessons</text>
+
+  <rect x="437" y="292" width="145" height="48" rx="24" fill="#FFFFFF" opacity="0.08" stroke="#FFFFFF" stroke-opacity="0.14"/>
+  <text x="510" y="322" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="600" fill="#F3F0FF">Beginner Focus</text>
+
+  <g opacity="0.85">
+    <rect x="850" y="125" width="290" height="180" rx="24" fill="#0B0B16" stroke="#FFFFFF" stroke-opacity="0.12"/>
+    <rect x="875" y="150" width="112" height="10" rx="5" fill="#A855F7" opacity="0.9"/>
+    <rect x="875" y="180" width="210" height="8" rx="4" fill="#FFFFFF" opacity="0.12"/>
+    <rect x="875" y="202" width="175" height="8" rx="4" fill="#FFFFFF" opacity="0.09"/>
+    <rect x="875" y="224" width="225" height="8" rx="4" fill="#FFFFFF" opacity="0.09"/>
+    <rect x="875" y="258" width="90" height="24" rx="12" fill="#A855F7" opacity="0.25"/>
+    <text x="920" y="275" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="600" fill="#D8B4FE">Kotlin</text>
+  </g>
+</svg>
