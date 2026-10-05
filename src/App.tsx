@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { KOTLIN_ROADMAP } from "./data/roadmap";
 import { RoadmapMenu } from "./components/RoadmapMenu";
 import { IntroLesson } from "./components/IntroLesson";
 import { HelloWorldOutputLesson } from "./components/HelloWorldOutputLesson";
@@ -75,10 +76,99 @@ type ViewState =
   | "break-continue"
   | "type-check-operators";
 
+const LESSON_TITLES: Record<string, string> = {
+  intro: "Kotlin Introduction",
+  "hello-world-output": "Hello World & Output",
+  syntax: "Kotlin Syntax",
+  comment: "Kotlin Comments",
+  "variable-ki": "Variables কী ও কেন দরকার?",
+  "val-o-var": "val বনাম var",
+  "naming-rules": "Variable Naming Rules",
+  "value-change": "Variable-এ Value পরিবর্তন",
+  "type-inference": "Type Inference",
+  "type-annotation": "Type Annotation",
+  "datatypes-overview": "Data Types পরিচিতি",
+  numbers: "Kotlin Numbers",
+  string: "Kotlin Strings",
+  char: "Kotlin Char",
+  boolean: "Kotlin Boolean",
+  "type-conversion": "Type Conversion",
+  "operator-intro": "Operators পরিচিতি",
+  "arithmetic-operators": "Arithmetic Operators",
+  "assignment-operators": "Assignment Operators",
+  "comparison-operators": "Comparison Operators",
+  "logical-operators": "Logical Operators",
+  "unary-operators": "Unary Operators",
+  "prefix-postfix-operators": "Prefix & Postfix Operators",
+  "operator-precedence": "Operator Precedence",
+  "control-flow-intro": "Control Flow পরিচিতি",
+  "if-statement": "if Statement",
+  "else-and-else-if": "else ও else if",
+  "nested-if": "Nested if",
+  "when-expression": "when Expression",
+  "when-advanced": "when-এর আরও ব্যবহার",
+  "loops-intro": "Loops পরিচিতি",
+  "range-operators": "Range Operators",
+  "for-loop": "for Loop",
+  "in-operator": "in ও !in",
+  "while-loop": "while Loop",
+  "do-while-loop": "do-while Loop",
+  "break-continue": "break ও continue",
+  "type-check-operators": "Type Check Operators",
+};
+
 export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [currentView, setCurrentView] = useState<ViewState>("home");
   const [selectedTopic, setSelectedTopic] = useState<string>("intro");
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  // Monitor scroll position globally for all lessons
+  useEffect(() => {
+    let ticking = false;
+
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const scrolled = window.scrollY > 45;
+          setIsScrolled((prev) => (prev !== scrolled ? scrolled : prev));
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  // When switching lessons/views, reset scroll to top immediately
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
+    setIsScrolled(false);
+  }, [currentView]);
+
+  // Determine current lesson title
+  const currentLessonTitle =
+    (currentView !== "home" && LESSON_TITLES[currentView]) ||
+    (currentView !== "home"
+      ? KOTLIN_ROADMAP.flatMap((m) => m.topics).find((t) => t.id === currentView)?.title
+      : "") ||
+    "Kotlin পাঠ";
+
+  const showLessonTitle = currentView !== "home" && isScrolled;
+
+  const handleBrandClick = () => {
+    if (isScrolled && currentView !== "home") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      setCurrentView("home");
+    }
+  };
 
   const navigateToTopic = (topicId: string) => {
     setSelectedTopic(topicId);
@@ -209,8 +299,8 @@ export default function App() {
     <div className="paper-bg min-h-dvh text-ink antialiased">
       {/* Top Toolbar */}
       <header className="sticky top-0 z-20 flex h-[60px] w-full items-center border-b border-line bg-card/95 px-3 backdrop-blur-xs">
-        <div className="mx-auto flex w-full max-w-2xl items-center justify-between">
-          <div className="flex items-center gap-2">
+        <div className="mx-auto flex w-full max-w-2xl items-center justify-between gap-3">
+          <div className="flex min-w-0 flex-1 items-center gap-2">
             {/* If inside a lesson, show back button; otherwise menu button */}
             {currentView !== "home" ? (
               <button
@@ -257,15 +347,38 @@ export default function App() {
               </button>
             )}
 
-            {/* App Name right beside the button */}
-            <button
-              type="button"
-              onClick={() => setCurrentView("home")}
-              className="flex items-baseline gap-1.5 text-[20px] leading-none"
-            >
-              <span className="font-bold tracking-tight text-ink">Kotlin</span>
-              <span className="font-bold text-terra-deep">শিখি</span>
-            </button>
+            {/* App Name & Lesson Title with smooth fade/slide transition */}
+            <div className="relative flex h-8 min-w-0 flex-1 items-center overflow-hidden">
+              {/* Default Brand: Kotlin শিখি */}
+              <button
+                type="button"
+                onClick={handleBrandClick}
+                className={`absolute inset-y-0 left-0 flex items-center gap-1.5 text-[20px] leading-none transition-all duration-300 ease-out select-none ${
+                  showLessonTitle
+                    ? "pointer-events-none -translate-y-3 opacity-0"
+                    : "pointer-events-auto translate-y-0 opacity-100"
+                }`}
+              >
+                <span className="font-bold tracking-tight text-ink">Kotlin</span>
+                <span className="font-bold text-terra-deep">শিখি</span>
+              </button>
+
+              {/* Current Lesson Title (shown when scrolled in any lesson) */}
+              {currentView !== "home" && (
+                <button
+                  type="button"
+                  onClick={handleBrandClick}
+                  title={currentLessonTitle}
+                  className={`absolute inset-y-0 left-0 flex max-w-full items-center text-left text-[17px] sm:text-[18px] font-bold tracking-tight text-ink transition-all duration-300 ease-out select-none ${
+                    showLessonTitle
+                      ? "pointer-events-auto translate-y-0 opacity-100"
+                      : "pointer-events-none translate-y-3 opacity-0"
+                  }`}
+                >
+                  <span className="truncate">{currentLessonTitle}</span>
+                </button>
+              )}
+            </div>
           </div>
 
           {/* Right Menu Button when in lesson mode */}
