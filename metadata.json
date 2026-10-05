@@ -1,0 +1,6 @@
+{
+  "name": "Kotlin শিখি",
+  "description": "সহজে বাংলায় Kotlin প্রোগ্রামিং শিখুন।",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
