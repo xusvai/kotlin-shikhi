@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { KOTLIN_ROADMAP } from "./data/roadmap";
 import { RoadmapMenu } from "./components/RoadmapMenu";
 import { IntroLesson } from "./components/IntroLesson";
+import { ProgramStructureLesson } from "./components/ProgramStructureLesson";
 import { HelloWorldOutputLesson } from "./components/HelloWorldOutputLesson";
 import { SyntaxLesson } from "./components/SyntaxLesson";
 import { CommentLesson } from "./components/CommentLesson";
@@ -38,6 +39,7 @@ import { BlankLesson } from "./components/BlankLesson";
 type ViewState =
   | "home"
   | "intro"
+  | "program-structure"
   | "hello-world-output"
   | "syntax"
   | "comment"
@@ -78,6 +80,7 @@ type ViewState =
 
 const LESSON_TITLES: Record<string, string> = {
   intro: "Kotlin Introduction",
+  "program-structure": "Kotlin Program Structure",
   "hello-world-output": "Hello World & Output",
   syntax: "Kotlin Syntax",
   comment: "Kotlin Comments",
@@ -174,6 +177,12 @@ export default function App() {
     setSelectedTopic(topicId);
     if (topicId === "intro") {
       setCurrentView("intro");
+    } else if (
+      topicId === "program-structure" ||
+      topicId === "kotlin-program-structure" ||
+      topicId === "structure"
+    ) {
+      setCurrentView("program-structure");
     } else if (
       topicId === "hello-world-output" ||
       topicId === "hello-world" ||
@@ -426,6 +435,19 @@ export default function App() {
             onBack={() => setCurrentView("home")}
             onOpenMenu={() => setMenuOpen(true)}
             onNextLesson={() => {
+              navigateToTopic("program-structure");
+            }}
+          />
+        </main>
+      ) : currentView === "program-structure" ? (
+        <main>
+          <ProgramStructureLesson
+            onBack={() => setCurrentView("home")}
+            onOpenMenu={() => setMenuOpen(true)}
+            onPrevLesson={() => {
+              navigateToTopic("intro");
+            }}
+            onNextLesson={() => {
               navigateToTopic("hello-world-output");
             }}
           />
@@ -436,7 +458,7 @@ export default function App() {
             onBack={() => setCurrentView("home")}
             onOpenMenu={() => setMenuOpen(true)}
             onPrevLesson={() => {
-              navigateToTopic("intro");
+              navigateToTopic("program-structure");
             }}
             onNextLesson={() => {
               navigateToTopic("syntax");

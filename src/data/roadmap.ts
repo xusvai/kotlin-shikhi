@@ -25,6 +25,12 @@ export const KOTLIN_ROADMAP: RoadmapModule[] = [
         detail: "Overview & Features",
       },
       {
+        id: "program-structure",
+        title: "Program Structure",
+        tag: "main()",
+        detail: "Kotlin প্রোগ্রামের গঠন",
+      },
+      {
         id: "hello-world-output",
         title: "Hello World & Output",
         tag: "println()",
